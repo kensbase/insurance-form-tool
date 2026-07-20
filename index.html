@@ -271,7 +271,7 @@ const FIELD_MAP = [
 
   {page:2, x:151.7, bottom:641.8, field:'chineseName',    wx0:145, wx1:400, wtop:628, wbottom:644},
 
-  {page:3, x:70.0,  bottom:210.3, field:'englishName',    wx0:70,  wx1:314, wtop:196, wbottom:212},
+  {page:3, x:77.4,  bottom:210.3, field:'englishName',    wx0:70,  wx1:314, wtop:196, wbottom:212},
   {page:3, x:77.4,  bottom:238.8, field:'address',        wx0:70,  wx1:410, wtop:226, wbottom:246},
   {page:3, x:238.0, bottom:357.1, field:'englishName',    wx0:230, wx1:377, wtop:343, wbottom:359},
 
@@ -324,7 +324,7 @@ function formatDob(isoDate){
   const parts = isoDate.split('-');
   if(parts.length !== 3) return isoDate;
   const [y, m, d] = parts;
-  return `${y}年${m}月${d}日`;
+  return `${d}/${m}/${y}`;
 }
 
 function normalizePhone(raw){
