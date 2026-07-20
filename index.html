@@ -150,13 +150,25 @@ padding-right:8px;
 
   <div class="section">
     <h2>基本資料 Personal</h2>
-    <div class="field">
-      <label>中文姓名</label>
-      <input type="text" id="chineseName" placeholder="例：王小明">
+    <div class="two-col">
+      <div class="field">
+        <label>中文姓</label>
+        <input type="text" id="chineseSurname" placeholder="例：王">
+      </div>
+      <div class="field">
+        <label>中文名</label>
+        <input type="text" id="chineseGivenName" placeholder="例：小明">
+      </div>
     </div>
-    <div class="field">
-      <label>英文姓名</label>
-      <input type="text" id="englishName" placeholder="例：Wang Xiao Ming">
+    <div class="two-col">
+      <div class="field">
+        <label>英文姓 Surname</label>
+        <input type="text" id="englishSurname" placeholder="例：Wang">
+      </div>
+      <div class="field">
+        <label>英文名 Given Name</label>
+        <input type="text" id="englishGivenName" placeholder="例：John">
+      </div>
     </div>
     <div class="two-col">
       <div class="field">
@@ -216,25 +228,6 @@ padding-right:8px;
     </div>
   </div>
 
-  <div class="section">
-    <h2>周大福投保申請書 CTF Life Application</h2>
-    <div class="field">
-      <label>中文姓</label>
-      <input type="text" id="ctfChineseSurname" placeholder="例：王">
-    </div>
-    <div class="field">
-      <label>中文名</label>
-      <input type="text" id="ctfChineseGivenName" placeholder="例：小明">
-    </div>
-    <div class="field">
-      <label>英文姓 Surname</label>
-      <input type="text" id="ctfEnglishSurname" placeholder="例：Wang">
-    </div>
-    <div class="field">
-      <label>英文名 Given Name</label>
-      <input type="text" id="ctfEnglishGivenName" placeholder="例：John">
-    </div>
-  </div>
 
 </main>
 
@@ -317,10 +310,10 @@ const FONT_PT = 11;
 // name and would otherwise collide with the overlaid text.
 const CTF_PAGE_W = 595.28, CTF_PAGE_H = 841.89;
 const CTF_FIELD_MAP = [
-  {page:0,  x:201.75, bottom:355.08, field:'ctfEnglishSurname'},
-  {page:0,  x:201.75, bottom:372.26, field:'ctfEnglishGivenName'},
-  {page:0,  x:201.75, bottom:400.52, field:'ctfChineseSurname'},
-  {page:0,  x:201.75, bottom:418.26, field:'ctfChineseGivenName'},
+  {page:0,  x:201.75, bottom:355.08, field:'englishSurname'},
+  {page:0,  x:201.75, bottom:372.26, field:'englishGivenName'},
+  {page:0,  x:201.75, bottom:400.52, field:'chineseSurname'},
+  {page:0,  x:201.75, bottom:418.26, field:'chineseGivenName'},
   {page:0,  x:203.97, bottom:696.64, field:'idNumber'},
 
   {page:1,  x:265.02, bottom:512.25, field:'address'},
@@ -379,17 +372,17 @@ function normalizePhone(raw){
 }
 
 function getValues(){
-  const ids = ['chineseName','englishName','dob','nationality','idNumber','contactNumber','email',
+  const ids = ['chineseSurname','chineseGivenName','englishSurname','englishGivenName',
+    'dob','nationality','idNumber','contactNumber','email',
     'address','occupation','industry','companyName','companyAddress',
-    'beneficiaryInfo',
-    'ctfChineseSurname','ctfChineseGivenName','ctfEnglishSurname','ctfEnglishGivenName'];
+    'beneficiaryInfo'];
   const vals = {};
   ids.forEach(id => { vals[id] = document.getElementById(id).value.trim(); });
   vals.dob = formatDob(vals.dob);
   vals.contactNumber = normalizePhone(vals.contactNumber);
-  const chineseFull = [vals.ctfChineseSurname, vals.ctfChineseGivenName].filter(Boolean).join('');
-  const englishFull = [vals.ctfEnglishGivenName, vals.ctfEnglishSurname].filter(Boolean).join(' ');
-  vals.ctfFullName = [chineseFull, englishFull].filter(Boolean).join(' / ');
+  vals.chineseName = [vals.chineseSurname, vals.chineseGivenName].filter(Boolean).join('');
+  vals.englishName = [vals.englishSurname, vals.englishGivenName].filter(Boolean).join(' ');
+  vals.ctfFullName = [vals.chineseName, vals.englishName].filter(Boolean).join(' / ');
   return vals;
 }
 
